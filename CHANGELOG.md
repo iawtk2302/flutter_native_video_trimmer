@@ -1,3 +1,9 @@
+## 1.0.3
+
+* Fix iOS implementation
+* Add Flutter import to iOS handler files
+* Fix method channel implementation
+
 ## 1.0.2
 
 * Fix iOS implementation
