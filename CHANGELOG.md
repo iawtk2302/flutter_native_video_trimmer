@@ -1,3 +1,12 @@
+## 1.0.5
+
+* Add MediaInfo model class for better type safety
+* Update getVideoInfo to return MediaInfo instead of Map
+
+## 1.0.4
+
+* Update method channel name to match package name
+
 ## 1.0.3
 
 * Fix iOS implementation

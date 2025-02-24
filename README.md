@@ -27,7 +27,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_native_video_trimmer: ^1.0.3
+  flutter_native_video_trimmer: ^1.0.5
 ```
 
 Or install via command line:

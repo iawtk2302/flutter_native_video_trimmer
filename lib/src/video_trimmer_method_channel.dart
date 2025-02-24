@@ -1,12 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
+import 'models/models.dart';
+
 import 'video_trimmer_platform_interface.dart';
 
 /// An implementation of [VideoTrimmerPlatform] that uses method channels.
 class MethodChannelVideoTrimmer extends VideoTrimmerPlatform {
   @visibleForTesting
-  final methodChannel = const MethodChannel('video_trimmer');
+  final methodChannel = const MethodChannel('flutter_native_video_trimmer');
 
   @override
   Future<void> loadVideo(String path) async {
@@ -43,10 +45,11 @@ class MethodChannelVideoTrimmer extends VideoTrimmerPlatform {
   }
 
   @override
-  Future<Map<String, dynamic>> getVideoInfo() async {
+  Future<MediaInfo> getVideoInfo() async {
     final result =
         await methodChannel.invokeMethod<Map<Object?, Object?>>('getVideoInfo');
-    return Map<String, dynamic>.from(result ?? {});
+    final map = Map<String, dynamic>.from(result ?? {});
+    return MediaInfo.fromMap(map);
   }
 
   @override

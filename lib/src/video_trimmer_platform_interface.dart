@@ -1,5 +1,7 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+import 'models/models.dart';
+
 import 'video_trimmer_method_channel.dart';
 
 abstract class VideoTrimmerPlatform extends PlatformInterface {
@@ -43,7 +45,7 @@ abstract class VideoTrimmerPlatform extends PlatformInterface {
     throw UnimplementedError('getVideoThumbnail() has not been implemented.');
   }
 
-  Future<Map<String, dynamic>> getVideoInfo() {
+  Future<MediaInfo> getVideoInfo() {
     throw UnimplementedError('getVideoInfo() has not been implemented.');
   }
 
