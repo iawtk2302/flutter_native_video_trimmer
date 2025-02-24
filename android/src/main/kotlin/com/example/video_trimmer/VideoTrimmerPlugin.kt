@@ -27,7 +27,6 @@ class VideoTrimmerPlugin : FlutterPlugin, MethodCallHandler {
             MethodName.LOAD_VIDEO to LoadVideoHandler(context),
             MethodName.TRIM_VIDEO to TrimVideoHandler(context),
             MethodName.GET_VIDEO_THUMBNAIL to GetVideoThumbnailHandler(context),
-            MethodName.GET_VIDEO_INFO to GetVideoInfoHandler(context),
             MethodName.CLEAR_TRIM_VIDEO_CACHE to ClearTrimVideoCacheHandler(context)
         )
     }

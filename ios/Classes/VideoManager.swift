@@ -16,7 +16,7 @@ class VideoManager {
         currentAsset = AVAsset(url: url)
     }
     
-    func trimVideo(startTimeMs: Int64, endTimeMs: Int64, outputPath: String?, completion: @escaping (Result<String, Error>) -> Void) {
+    func trimVideo(startTimeMs: Int64, endTimeMs: Int64, completion: @escaping (Result<String, Error>) -> Void) {
         guard let asset = currentAsset else {
             completion(.failure(VideoError.noVideoLoaded))
             return
@@ -32,14 +32,9 @@ class VideoManager {
             completion(.failure(VideoError.exportSessionFailed))
             return
         }
-        
-        let outputURL: URL
-        if let outputPath = outputPath {
-            outputURL = URL(fileURLWithPath: outputPath)
-        } else {
-            let timestamp = Int64(Date().timeIntervalSince1970 * 1000)
-            outputURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("video_trimmer_\(timestamp).mp4")
-        }
+
+        let timestamp = Int64(Date().timeIntervalSince1970 * 1000)
+        let outputURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("video_trimmer_\(timestamp).mp4")
         
         // Delete any existing file
         try? fileManager.removeItem(at: outputURL)
@@ -93,30 +88,6 @@ class VideoManager {
         }
         
         return outputURL.path
-    }
-    
-    func getVideoInfo() throws -> [String: Any] {
-        guard let asset = currentAsset else {
-            throw VideoError.noVideoLoaded
-        }
-        
-        let durationMs = Int64(asset.duration.seconds * 1000)
-        var size: CGSize = .zero
-        
-        if let track = asset.tracks(withMediaType: .video).first {
-            size = track.naturalSize
-        }
-
-        let size = CGSize(width: Int(size.width), height: Int(size.height))
-
-        let mimeType = asset.mimeType
-        
-        return [
-            "durationMs": durationMs,
-            "width": Int(size.width),
-            "height": Int(size.height),
-            "mimeType": mimeType
-        ]
     }
     
     func clearCache() {

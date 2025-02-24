@@ -43,16 +43,11 @@ class VideoManager private constructor(private val context: Context) {
     suspend fun trimVideo(
         startTimeMs: Long,
         endTimeMs: Long,
-        outputPath: String? = null
     ): String = withContext(Dispatchers.IO) {
         val videoPath = currentVideoPath ?: throw VideoException("No video loaded")
         
         val timestamp = System.currentTimeMillis()
-        val outputFile = if (outputPath != null) {
-            File(outputPath)
-        } else {
-            File(context.cacheDir, "video_trimmer_$timestamp.mp4")
-        }
+        val outputFile = File(context.cacheDir, "video_trimmer_$timestamp.mp4")
 
         // Delete existing file if it exists
         if (outputFile.exists()) {

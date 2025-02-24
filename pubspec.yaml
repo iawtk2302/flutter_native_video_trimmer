@@ -1,6 +1,6 @@
 name: flutter_native_video_trimmer
 description: "A lightweight Flutter plugin for video manipulation using pure native code (Media3 for Android and AVFoundation for iOS). Efficiently trim videos, generate thumbnails, and retrieve video information without FFmpeg dependency."
-version: 1.0.8
+version: 1.0.1
 homepage: https://github.com/iawtk2302/flutter_native_video_trimmer
 repository: https://github.com/iawtk2302/flutter_native_video_trimmer
 issue_tracker: https://github.com/iawtk2302/flutter_native_video_trimmer/issues

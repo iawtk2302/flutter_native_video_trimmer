@@ -21,11 +21,7 @@ class _MyAppState extends State<MyApp> {
       // 1. Load a video file
       await _videoTrimmer.loadVideo('/path/to/your/video.mp4');
 
-      // 2. Get video information
-      final videoInfo = await _videoTrimmer.getVideoInfo();
-      print('Video Info: $videoInfo');
-
-      // 3. Generate a thumbnail at 1 second mark
+      // 2. Generate a thumbnail at 1 second mark
       final thumbnailPath = await _videoTrimmer.getVideoThumbnail(
         positionMs: 1000,
         quality: 100,
@@ -34,7 +30,7 @@ class _MyAppState extends State<MyApp> {
       );
       print('Thumbnail generated at: $thumbnailPath');
 
-      // 4. Trim the video (first 5 seconds)
+      // 3. Trim the video (first 5 seconds)
       final trimmedPath = await _videoTrimmer.trimVideo(
         startTimeMs: 0,
         endTimeMs: 5000,

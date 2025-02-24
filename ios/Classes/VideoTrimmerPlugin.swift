@@ -20,7 +20,6 @@ public class VideoTrimmerPlugin: NSObject, FlutterPlugin {
             .loadVideo: LoadVideoHandler(),
             .trimVideo: TrimVideoHandler(),
             .getVideoThumbnail: GetVideoThumbnailHandler(),
-            .getVideoInfo: GetVideoInfoHandler(),
             .clearTrimVideoCache: ClearTrimVideoCacheHandler()
         ]
     }

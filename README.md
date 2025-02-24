@@ -27,7 +27,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_native_video_trimmer: ^1.0.8
+  flutter_native_video_trimmer: ^1.0.1
 ```
 
 Or install via command line:
@@ -39,7 +39,7 @@ flutter pub add flutter_native_video_trimmer
 Or specify the exact version:
 
 ```bash
-flutter pub add flutter_native_video_trimmer:1.0.8
+flutter pub add flutter_native_video_trimmer:1.0.1
 ```
 
 ### Minimum Requirements
@@ -89,15 +89,6 @@ final thumbnailPath = await videoTrimmer.getVideoThumbnail(
   width: 640,         // Optional width
   height: 480,        // Optional height
 );
-```
-
-### Get Video Information
-
-```dart
-final videoInfo = await videoTrimmer.getVideoInfo();
-print('Duration: ${videoInfo.durationMs}');
-print('Width: ${videoInfo.width}');
-print('Height: ${videoInfo.height}');
 ```
 
 ## Example
