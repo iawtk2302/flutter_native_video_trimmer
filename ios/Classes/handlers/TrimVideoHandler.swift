@@ -20,12 +20,10 @@ class TrimVideoHandler: BaseMethodHandler {
             return
         }
         
-        let outputPath = args["outputPath"] as? String
         
         VideoManager.shared.trimVideo(
             startTimeMs: Int64(startTime),
             endTimeMs: Int64(endTime),
-            outputPath: outputPath
         ) { trimResult in
             switch trimResult {
             case .success(let path):

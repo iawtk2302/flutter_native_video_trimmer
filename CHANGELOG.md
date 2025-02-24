@@ -1,14 +1,18 @@
+## 1.1.0
+
+- Fix bug in trimVideo method
+
 ## 1.0.9
 
-- refactor code
+- Refactor code
 
 ## 1.0.8
 
-- update readme
+- Update readme
 
 ## 1.0.7
 
-- update clearCache method and parameter type to return MediaInfo
+- Update clearCache method and parameter type to return MediaInfo
 
 ## 1.0.6
 
