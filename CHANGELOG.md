@@ -1,3 +1,9 @@
+## 1.0.2
+
+* Fix iOS implementation
+* Fix method channel implementation
+* Update package export configuration
+
 ## 1.0.1
 
 * Fix package export configuration

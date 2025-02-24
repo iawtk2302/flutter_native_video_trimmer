@@ -1,7 +1,7 @@
-enum class MethodName(val value: String) {
-    loadVideo("loadVideo"),
-    trimVideo("trimVideo"),
-    getVideoThumbnail("getVideoThumbnail"),
-    getVideoInfo("getVideoInfo"),
-    clearTrimVideoCache("clearTrimVideoCache")
+enum MethodName: String, Hashable {
+    case loadVideo = "loadVideo"
+    case trimVideo = "trimVideo"
+    case getVideoThumbnail = "getVideoThumbnail"
+    case getVideoInfo = "getVideoInfo"
+    case clearTrimVideoCache = "clearTrimVideoCache"
 }
