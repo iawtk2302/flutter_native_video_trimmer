@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Fix bug in trimVideo method
+
 ## 1.1.0
 
 - Fix bug in trimVideo method

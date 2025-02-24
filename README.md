@@ -27,7 +27,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_native_video_trimmer: ^1.1.0
+  flutter_native_video_trimmer: ^1.1.1
 ```
 
 Or install via command line:
@@ -39,7 +39,7 @@ flutter pub add flutter_native_video_trimmer
 Or specify the exact version:
 
 ```bash
-flutter pub add flutter_native_video_trimmer:1.1.0
+flutter pub add flutter_native_video_trimmer:1.1.1
 ```
 
 ### Minimum Requirements

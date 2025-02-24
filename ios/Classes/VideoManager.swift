@@ -33,8 +33,10 @@ class VideoManager {
             return
         }
 
-        let timestamp = Int64(Date().timeIntervalSince1970 * 1000)
-        let outputURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("video_trimmer_\(timestamp).mp4")
+        // Use cacheDir like Android
+        let timestamp = Int64(Date().timeIntervalSince1970)
+        let cacheDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+        let outputURL = cacheDir.appendingPathComponent("video_trimmer_\(timestamp).mp4")
         
         // Delete any existing file
         try? fileManager.removeItem(at: outputURL)
@@ -45,8 +47,15 @@ class VideoManager {
         // Convert milliseconds to CMTime
         let startTime = CMTime(value: startTimeMs, timescale: 1000)
         let endTime = CMTime(value: endTimeMs, timescale: 1000)
-        let timeRange = CMTimeRange(start: startTime, end: endTime)
         
+        // Validate time range against asset duration
+        let duration = CMTimeGetSeconds(asset.duration) * 1000
+        guard startTimeMs >= 0 && endTimeMs <= Int64(duration) && endTimeMs > startTimeMs else {
+            completion(.failure(VideoError.invalidTimeRange))
+            return
+        }
+        
+        let timeRange = CMTimeRange(start: startTime, end: endTime)
         exportSession.timeRange = timeRange
         
         exportSession.exportAsynchronously {
@@ -112,6 +121,7 @@ enum VideoError: LocalizedError {
     case exportCancelled
     case thumbnailGenerationFailed
     case unknown
+    case invalidTimeRange
     
     var errorDescription: String? {
         switch self {
@@ -131,6 +141,8 @@ enum VideoError: LocalizedError {
             return "Failed to generate thumbnail"
         case .unknown:
             return "An unknown error occurred"
+        case .invalidTimeRange:
+            return "Invalid time range. Start time must be non-negative and end time must be greater than start time and within video duration"
         }
     }
 }
