@@ -138,11 +138,13 @@ class VideoManager private constructor(private val context: Context) {
         val duration = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)?.toLong() ?: 0
         val width = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)?.toInt() ?: 0
         val height = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)?.toInt() ?: 0
+        val mimeType = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_MIMETYPE)
 
         return mapOf(
             "duration" to duration,
             "width" to width,
-            "height" to height
+            "height" to height,
+            "mimeType" to mimeType
         )
     }
 

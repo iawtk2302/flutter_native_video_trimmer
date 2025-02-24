@@ -106,20 +106,26 @@ class VideoManager {
         if let track = asset.tracks(withMediaType: .video).first {
             size = track.naturalSize
         }
+
+        let size = CGSize(width: Int(size.width), height: Int(size.height))
+
+        let mimeType = asset.mimeType
         
         return [
-            "duration": durationMs,
+            "durationMs": durationMs,
             "width": Int(size.width),
-            "height": Int(size.height)
+            "height": Int(size.height),
+            "mimeType": mimeType
         ]
     }
     
     func clearCache() {
         let tempDirectory = URL(fileURLWithPath: NSTemporaryDirectory())
         let enumerator = fileManager.enumerator(at: tempDirectory, includingPropertiesForKeys: nil)
-        
+
         while let url = enumerator?.nextObject() as? URL {
-            if url.pathExtension == "mp4" || url.pathExtension == "jpg" {
+            if (url.pathExtension == "mp4" || url.pathExtension == "jpg") &&
+               url.lastPathComponent.hasPrefix("video_trimmer") {
                 try? fileManager.removeItem(at: url)
             }
         }

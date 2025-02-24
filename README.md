@@ -3,7 +3,7 @@
 [![pub package](https://img.shields.io/pub/v/flutter_native_video_trimmer.svg)](https://pub.dev/packages/flutter_native_video_trimmer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A lightweight Flutter plugin for video manipulation that uses pure native implementations (Media3 for Android and AVFoundation for iOS). Efficiently trim videos, generate thumbnails, and retrieve video information without any FFmpeg dependency.
+A lightweight Flutter plugin for video manipulation that uses pure native implementations. Efficiently trim videos, generate thumbnails, and retrieve video information without any FFmpeg dependency.
 
 ### Why choose this plugin?
 
@@ -27,7 +27,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_native_video_trimmer: ^1.0.6
+  flutter_native_video_trimmer: ^1.0.7
 ```
 
 Or install via command line:
@@ -39,7 +39,7 @@ flutter pub add flutter_native_video_trimmer
 Or specify the exact version:
 
 ```bash
-flutter pub add flutter_native_video_trimmer:1.0.2
+flutter pub add flutter_native_video_trimmer:1.0.7
 ```
 
 ### Minimum Requirements
