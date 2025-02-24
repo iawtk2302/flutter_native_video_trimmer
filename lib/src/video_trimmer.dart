@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'models/models.dart';
 import 'video_trimmer_platform_interface.dart';
 
 class VideoTrimmer {
@@ -38,7 +39,7 @@ class VideoTrimmer {
   }
 
   /// Gets information about the loaded video including duration, width, height, etc.
-  Future<Map<String, dynamic>> getVideoInfo() {
+  Future<MediaInfo> getVideoInfo() {
     return VideoTrimmerPlatform.instance.getVideoInfo();
   }
 
