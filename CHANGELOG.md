@@ -1,3 +1,7 @@
+## 1.0.8
+
+- update readme
+
 ## 1.0.7
 
 - update clearCache method and parameter type to return MediaInfo
