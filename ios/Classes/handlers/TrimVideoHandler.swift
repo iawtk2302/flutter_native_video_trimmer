@@ -3,8 +3,8 @@ import Flutter
 class TrimVideoHandler: BaseMethodHandler {
     func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let args = call.arguments as? [String: Any],
-              let startTime = args["startTime"] as? Int,
-              let endTime = args["endTime"] as? Int else {
+              let startTime = args["startTimeMs"] as? Int,
+              let endTime = args["endTimeMs"] as? Int else {
             result(FlutterError(code: "INVALID_ARGUMENTS",
                               message: "Missing or invalid startTime/endTime parameters",
                               details: nil))

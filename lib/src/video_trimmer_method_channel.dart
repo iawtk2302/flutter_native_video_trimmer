@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'models/models.dart';
-
 import 'video_trimmer_platform_interface.dart';
 
 /// An implementation of [VideoTrimmerPlatform] that uses method channels.
@@ -36,7 +35,7 @@ class MethodChannelVideoTrimmer extends VideoTrimmerPlatform {
   }) async {
     final result =
         await methodChannel.invokeMethod<String>('getVideoThumbnail', {
-      'position': positionMs,
+      'positionMs': positionMs,
       'quality': quality,
       'width': width,
       'height': height,

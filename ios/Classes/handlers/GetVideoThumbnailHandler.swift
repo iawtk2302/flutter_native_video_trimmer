@@ -3,7 +3,7 @@ import Flutter
 class GetVideoThumbnailHandler: BaseMethodHandler {
     func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let args = call.arguments as? [String: Any],
-              let position = args["position"] as? Int,
+              let position = args["positionMs"] as? Int,
               let quality = args["quality"] as? Int else {
             result(FlutterError(code: "INVALID_ARGUMENTS",
                               message: "Missing or invalid position/quality parameters",
