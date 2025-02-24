@@ -27,14 +27,14 @@ class MethodChannelVideoTrimmer extends VideoTrimmerPlatform {
 
   @override
   Future<String?> getVideoThumbnail({
-    required int position,
+    required int positionMs,
     required int quality,
     int? width,
     int? height,
   }) async {
     final result =
         await methodChannel.invokeMethod<String>('getVideoThumbnail', {
-      'position': position,
+      'position': positionMs,
       'quality': quality,
       'width': width,
       'height': height,

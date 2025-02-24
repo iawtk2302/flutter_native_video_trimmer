@@ -1,3 +1,13 @@
-## 0.0.1
+## 1.0.0
 
-* TODO: Describe initial release.
+* Initial release
+* Features:
+  * Video trimming using native code (Media3 for Android, AVFoundation for iOS)
+  * Thumbnail generation
+  * Video information retrieval
+  * No FFmpeg dependency
+  * Support for Android and iOS
+* Documentation:
+  * Comprehensive README with usage examples
+  * API documentation
+  * Example app
