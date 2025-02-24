@@ -27,7 +27,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_native_video_trimmer: ^1.0.5
+  flutter_native_video_trimmer: ^1.0.6
 ```
 
 Or install via command line:
@@ -107,19 +107,21 @@ Check the [example](example) folder for a complete sample app demonstrating all 
 ## 📱 Platform Support
 
 | Platform | Implementation | Minimum Version | Status |
-|----------|----------------|-----------------|--------|
-| Android  | Media3         | API 21 (5.0)    | ✅ |
-| iOS      | AVFoundation   | iOS 12.0        | ✅ |
+| -------- | -------------- | --------------- | ------ |
+| Android  | Media3         | API 21 (5.0)    | ✅     |
+| iOS      | AVFoundation   | iOS 12.0        | ✅     |
 
 ## 🛠️ Requirements
 
 ### Android
+
 - Minimum SDK: API 21 (Android 5.0)
 - Target SDK: API 34
 - Kotlin: 1.9.0
 - AndroidX
 
 ### iOS
+
 - Minimum iOS: 12.0
 - Swift: 5.0
 - Xcode: Latest version
@@ -134,6 +136,7 @@ Contributions are always welcome! Here's how you can help:
 4. 🔧 Submit pull requests
 
 ### Development Process
+
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
