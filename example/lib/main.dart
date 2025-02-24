@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_video_trimmer/video_trimmer.dart';
+import 'package:flutter_native_video_trimmer/flutter_native_video_trimmer.dart';
 
 void main() {
   runApp(const MyApp());
