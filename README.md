@@ -95,9 +95,9 @@ final thumbnailPath = await videoTrimmer.getVideoThumbnail(
 
 ```dart
 final videoInfo = await videoTrimmer.getVideoInfo();
-print('Duration: ${videoInfo['duration']}');
-print('Width: ${videoInfo['width']}');
-print('Height: ${videoInfo['height']}');
+print('Duration: ${videoInfo.durationMs}');
+print('Width: ${videoInfo.width}');
+print('Height: ${videoInfo.height}');
 ```
 
 ## Example
