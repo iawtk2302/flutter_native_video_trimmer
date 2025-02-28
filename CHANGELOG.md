@@ -1,3 +1,8 @@
+## 1.1.2
+
+- Fix bug on Android build (#1)
+- Update readme
+
 ## 1.1.1
 
 - Fix bug in trimVideo method

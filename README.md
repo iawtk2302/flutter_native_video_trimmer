@@ -3,7 +3,7 @@
 [![pub package](https://img.shields.io/pub/v/flutter_native_video_trimmer.svg)](https://pub.dev/packages/flutter_native_video_trimmer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A lightweight Flutter plugin for video manipulation that uses pure native implementations. Efficiently trim videos, generate thumbnails, and retrieve video information without any FFmpeg dependency.
+A lightweight Flutter plugin for video manipulation using native code. Trim videos, generate thumbnails, and retrieve video information without FFmpeg dependency..
 
 ### Why choose this plugin?
 
@@ -18,7 +18,6 @@ A lightweight Flutter plugin for video manipulation that uses pure native implem
 - 📼 **Video Loading**: Load and process video files from any source
 - ✂️ **Precise Trimming**: Trim videos with millisecond precision
 - 🖼️ **Thumbnail Generation**: Create high-quality thumbnails with customizable size
-- ℹ️ **Metadata Extraction**: Get comprehensive video information
 - 🛠️ **Native Implementation**: Clean and efficient platform-specific code
 
 ## 📦 Installation
@@ -27,7 +26,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_native_video_trimmer: ^1.1.1
+  flutter_native_video_trimmer: ^1.1.2
 ```
 
 Or install via command line:
@@ -39,7 +38,7 @@ flutter pub add flutter_native_video_trimmer
 Or specify the exact version:
 
 ```bash
-flutter pub add flutter_native_video_trimmer:1.1.1
+flutter pub add flutter_native_video_trimmer:1.1.2
 ```
 
 ### Minimum Requirements
@@ -91,6 +90,13 @@ final thumbnailPath = await videoTrimmer.getVideoThumbnail(
 );
 ```
 
+### Clear Cache
+
+```dart
+// Clear the cache
+await videoTrimmer.clearCache();
+```
+
 ## Example
 
 Check the [example](example) folder for a complete sample app demonstrating all features.
@@ -100,7 +106,7 @@ Check the [example](example) folder for a complete sample app demonstrating all 
 | Platform | Implementation | Minimum Version | Status |
 | -------- | -------------- | --------------- | ------ |
 | Android  | Media3         | API 21 (5.0)    | ✅     |
-| iOS      | AVFoundation   | iOS 12.0        | ✅     |
+| iOS      | AVFoundation   | iOS 13.0        | ✅     |
 
 ## 🛠️ Requirements
 
@@ -113,7 +119,7 @@ Check the [example](example) folder for a complete sample app demonstrating all 
 
 ### iOS
 
-- Minimum iOS: 12.0
+- Minimum iOS: 13.0
 - Swift: 5.0
 - Xcode: Latest version
 

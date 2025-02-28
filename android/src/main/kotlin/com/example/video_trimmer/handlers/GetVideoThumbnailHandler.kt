@@ -1,15 +1,19 @@
 package com.example.video_trimmer.handlers
 
-import android.content.Context
+
 import com.example.video_trimmer.BaseMethodHandler
+import android.content.Context
+import androidx.media3.common.util.UnstableApi
 import com.example.video_trimmer.VideoManager
-import io.flutter.plugin.common.MethodCall
-import io.flutter.plugin.common.MethodChannel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import io.flutter.plugin.common.MethodCall
+import io.flutter.plugin.common.MethodChannel
 
+
+@UnstableApi
 class GetVideoThumbnailHandler(private val context: Context) : BaseMethodHandler {
     private val scope = CoroutineScope(Dispatchers.Main)
 

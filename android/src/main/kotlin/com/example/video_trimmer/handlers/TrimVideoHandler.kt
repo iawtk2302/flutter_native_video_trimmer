@@ -1,8 +1,8 @@
 package com.example.video_trimmer.handlers
 
+import com.example.video_trimmer.BaseMethodHandler
 import android.content.Context
 import androidx.media3.common.util.UnstableApi
-import com.example.video_trimmer.BaseMethodHandler
 import com.example.video_trimmer.VideoManager
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -30,13 +30,9 @@ class TrimVideoHandler(private val context: Context) : BaseMethodHandler {
                     startTimeMs = startTimeMs,
                     endTimeMs = endTimeMs
                 )
-                withContext(Dispatchers.Main) {
-                    result.success(path)
-                }
+                result.success(path)
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    result.error("TRIM_ERROR", e.message, null)
-                }
+                result.error("TRIM_ERROR", e.message, null)
             }
         }
     }

@@ -5,8 +5,7 @@ import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import androidx.media3.common.MediaItem
-import androidx.media3.common.MimeTypes
-import androidx.media3.effect.Presentation
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.transformer.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -15,19 +14,34 @@ import java.io.File
 import java.io.FileOutputStream
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
+import java.lang.ref.WeakReference
 
-class VideoManager private constructor(private val context: Context) {
+
+
+@UnstableApi
+class VideoManager private constructor(context: Context) {
+    private val contextRef = WeakReference(context.applicationContext)
+    private val context: Context
+        get() = contextRef.get() ?: throw IllegalStateException("Context was garbage collected")
     private var currentVideoPath: String? = null
     private var transformer: Transformer? = null
     private val mediaMetadataRetriever = MediaMetadataRetriever()
 
     companion object {
         @Volatile
-        private var instance: VideoManager? = null
+        private var instance: WeakReference<VideoManager>? = null
 
         fun getInstance(context: Context): VideoManager {
-            return instance ?: synchronized(this) {
-                instance ?: VideoManager(context.applicationContext).also { instance = it }
+            val currentInstance = instance?.get()
+            if (currentInstance != null) {
+                return currentInstance
+            }
+            
+            return synchronized(this) {
+                instance?.get()
+                    ?: VideoManager(context.applicationContext).also {
+                        instance = WeakReference(it)
+                    }
             }
         }
     }
@@ -40,53 +54,61 @@ class VideoManager private constructor(private val context: Context) {
         mediaMetadataRetriever.setDataSource(path)
     }
 
-    suspend fun trimVideo(
+   suspend fun trimVideo(
         startTimeMs: Long,
         endTimeMs: Long,
-    ): String = withContext(Dispatchers.IO) {
+    ): String {
         val videoPath = currentVideoPath ?: throw VideoException("No video loaded")
         
-        val timestamp = System.currentTimeMillis()
-        val outputFile = File(context.cacheDir, "video_trimmer_$timestamp.mp4")
-
-        // Delete existing file if it exists
-        if (outputFile.exists()) {
-            outputFile.delete()
+        // Create output file on IO thread
+        val outputFile = withContext(Dispatchers.IO) {
+            val timestamp = System.currentTimeMillis()
+            val file = File(context.cacheDir, "video_trimmer_$timestamp.mp4")
+            if (file.exists()) {
+                file.delete()
+            }
+            file
         }
 
-        suspendCancellableCoroutine { continuation ->
-            val mediaItem = MediaItem.Builder()
-                .setUri(Uri.fromFile(File(videoPath)))
-                .setClippingConfiguration(
-                    MediaItem.ClippingConfiguration.Builder()
-                        .setStartPositionMs(startTimeMs)
-                        .setEndPositionMs(endTimeMs)
-                        .build()
-                )
-                .build()
+        // Switch to Main thread for Transformer operations
+        return withContext(Dispatchers.Main) {
+            suspendCancellableCoroutine { continuation ->
+                val mediaItem = MediaItem.Builder()
+                    .setUri(Uri.fromFile(File(videoPath)))
+                    .setClippingConfiguration(
+                        MediaItem.ClippingConfiguration.Builder()
+                            .setStartPositionMs(startTimeMs)
+                            .setEndPositionMs(endTimeMs)
+                            .build()
+                    )
+                    .build()
 
-            val transformerBuilder = Transformer.Builder(context)
-                .setVideoMimeType(MimeTypes.VIDEO_H264)
-                .addListener(
-                    object : Transformer.Listener {
-                        override fun onTransformationCompleted(inputMediaItem: MediaItem, result: TransformationResult) {
-                            continuation.resume(outputFile.absolutePath)
+                val transformerBuilder = Transformer.Builder(context)
+                    .addListener(
+                        object : Transformer.Listener {
+                            override fun onCompleted(
+                                composition: Composition,
+                                exportResult: ExportResult
+                            ) {
+                                continuation.resume(outputFile.absolutePath)
+                            }
+
+                            override fun onError(
+                                composition: Composition,
+                                exportResult: ExportResult,
+                                exportException: ExportException
+                            ) {
+                                continuation.resumeWithException(VideoException("Failed to trim video", exportException))
+                            }
                         }
+                    )
 
-                        override fun onTransformationError(
-                            inputMediaItem: MediaItem,
-                            exception: TransformationException
-                        ) {
-                            continuation.resumeWithException(VideoException("Failed to trim video", exception))
-                        }
-                    }
-                )
+                transformer = transformerBuilder.build()
+                transformer?.start(mediaItem, outputFile.absolutePath)
 
-            transformer = transformerBuilder.build()
-            transformer?.start(mediaItem, outputFile.absolutePath)
-
-            continuation.invokeOnCancellation {
-                transformer?.cancel()
+                continuation.invokeOnCancellation {
+                    transformer?.cancel()
+                }
             }
         }
     }
@@ -127,22 +149,6 @@ class VideoManager private constructor(private val context: Context) {
         outputFile.absolutePath
     }
 
-    fun getVideoInfo(): Map<String, Any> {
-        val videoPath = currentVideoPath ?: throw VideoException("No video loaded")
-
-        val duration = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)?.toLong() ?: 0
-        val width = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)?.toInt() ?: 0
-        val height = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)?.toInt() ?: 0
-        val mimeType = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_MIMETYPE)
-
-        return mapOf(
-            "duration" to duration,
-            "width" to width,
-            "height" to height,
-            "mimeType" to mimeType
-        )
-    }
-
     fun clearCache() {
         context.cacheDir.listFiles()?.forEach { file ->
             if (file.name.startsWith("video_trimmer_") && 
@@ -151,12 +157,14 @@ class VideoManager private constructor(private val context: Context) {
             }
         }
     }
-
     fun release() {
         transformer?.cancel()
         transformer = null
         mediaMetadataRetriever.release()
-        instance = null
+        synchronized(VideoManager) {
+            instance?.clear()
+            instance = null
+        }
     }
 }
 

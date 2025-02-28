@@ -36,6 +36,9 @@ class _MyAppState extends State<MyApp> {
         endTimeMs: 5000,
       );
       print('Video trimmed to: $trimmedPath');
+
+      // 4. Clear the cache
+      await _videoTrimmer.clearCache();
     } catch (e) {
       print('Error: $e');
     }
