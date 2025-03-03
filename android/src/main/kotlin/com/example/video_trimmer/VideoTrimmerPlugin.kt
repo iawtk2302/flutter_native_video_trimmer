@@ -34,7 +34,7 @@ class VideoTrimmerPlugin : FlutterPlugin, MethodCallHandler {
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        VideoManager.getInstance(context).release()
+        VideoManager.getInstance().release()
         channel.setMethodCallHandler(null)
     }
 

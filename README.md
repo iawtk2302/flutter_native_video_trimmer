@@ -3,7 +3,7 @@
 [![pub package](https://img.shields.io/pub/v/flutter_native_video_trimmer.svg)](https://pub.dev/packages/flutter_native_video_trimmer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A lightweight Flutter plugin for video manipulation using native code. Trim videos, generate thumbnails, and retrieve video information without FFmpeg dependency..
+A lightweight Flutter plugin for video manipulation using native code. Trim videos, generate thumbnails, and retrieve video information without FFmpeg dependency.
 
 ### Why choose this plugin?
 
@@ -26,7 +26,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_native_video_trimmer: ^1.1.2
+  flutter_native_video_trimmer: ^1.1.3
 ```
 
 Or install via command line:
@@ -34,19 +34,6 @@ Or install via command line:
 ```bash
 flutter pub add flutter_native_video_trimmer
 ```
-
-Or specify the exact version:
-
-```bash
-flutter pub add flutter_native_video_trimmer:1.1.2
-```
-
-### Minimum Requirements
-
-- Flutter: 3.0.0 or higher
-- Dart: 3.0.0 or higher
-- Android: minSdkVersion 21 (Android 5.0)
-- iOS: iOS 12.0 or higher
 
 ## 🚀 Usage
 
@@ -131,14 +118,6 @@ Contributions are always welcome! Here's how you can help:
 2. 💡 Suggest new features or improvements
 3. 📝 Improve documentation
 4. 🔧 Submit pull requests
-
-### Development Process
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 📄 License
 

@@ -17,7 +17,7 @@ class LoadVideoHandler(private val context: Context) : BaseMethodHandler {
         }
 
         try {
-            VideoManager.getInstance(context).loadVideo(path)
+            VideoManager.getInstance().loadVideo(path)
             result.success(null)
         } catch (e: Exception) {
             result.error("LOAD_ERROR", e.message, null)

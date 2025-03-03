@@ -30,7 +30,8 @@ class GetVideoThumbnailHandler(private val context: Context) : BaseMethodHandler
 
         scope.launch {
             try {
-                val path = VideoManager.getInstance(context).generateThumbnail(
+                val path = VideoManager.getInstance().generateThumbnail(
+                    context,
                     positionMs = positionMs,
                     width = width,
                     height = height,

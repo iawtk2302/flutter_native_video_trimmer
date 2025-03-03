@@ -10,7 +10,7 @@ import io.flutter.plugin.common.MethodChannel
 @UnstableApi
 class ClearTrimVideoCacheHandler(private val context: Context) : BaseMethodHandler {
     override fun handle(call: MethodCall, result: MethodChannel.Result) {
-        VideoManager.getInstance(context).clearCache()
+        VideoManager.getInstance().clearCache(context)
         result.success(null)
     }
 }

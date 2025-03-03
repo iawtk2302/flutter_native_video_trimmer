@@ -26,7 +26,8 @@ class TrimVideoHandler(private val context: Context) : BaseMethodHandler {
 
         scope.launch {
             try {
-                val path = VideoManager.getInstance(context).trimVideo(
+                val path = VideoManager.getInstance().trimVideo(
+                    context,
                     startTimeMs = startTimeMs,
                     endTimeMs = endTimeMs
                 )

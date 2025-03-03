@@ -19,29 +19,18 @@ import java.lang.ref.WeakReference
 
 
 @UnstableApi
-class VideoManager private constructor(context: Context) {
-    private val contextRef = WeakReference(context.applicationContext)
-    private val context: Context
-        get() = contextRef.get() ?: throw IllegalStateException("Context was garbage collected")
+class VideoManager {
     private var currentVideoPath: String? = null
     private var transformer: Transformer? = null
     private val mediaMetadataRetriever = MediaMetadataRetriever()
 
     companion object {
         @Volatile
-        private var instance: WeakReference<VideoManager>? = null
+        private var instance: VideoManager? = null
 
-        fun getInstance(context: Context): VideoManager {
-            val currentInstance = instance?.get()
-            if (currentInstance != null) {
-                return currentInstance
-            }
-            
-            return synchronized(this) {
-                instance?.get()
-                    ?: VideoManager(context.applicationContext).also {
-                        instance = WeakReference(it)
-                    }
+        fun getInstance(): VideoManager {
+            return instance ?: synchronized(this) {
+                instance ?: VideoManager().also { instance = it }
             }
         }
     }
@@ -55,6 +44,7 @@ class VideoManager private constructor(context: Context) {
     }
 
    suspend fun trimVideo(
+        context: Context,
         startTimeMs: Long,
         endTimeMs: Long,
     ): String {
@@ -114,6 +104,7 @@ class VideoManager private constructor(context: Context) {
     }
 
     suspend fun generateThumbnail(
+        context: Context,
         positionMs: Long,
         width: Int? = null,
         height: Int? = null,
@@ -149,7 +140,7 @@ class VideoManager private constructor(context: Context) {
         outputFile.absolutePath
     }
 
-    fun clearCache() {
+    fun clearCache(context: Context) {
         context.cacheDir.listFiles()?.forEach { file ->
             if (file.name.startsWith("video_trimmer_") && 
                 (file.extension == "mp4" || file.extension == "jpg")) {
@@ -161,8 +152,8 @@ class VideoManager private constructor(context: Context) {
         transformer?.cancel()
         transformer = null
         mediaMetadataRetriever.release()
-        synchronized(VideoManager) {
-            instance?.clear()
+        currentVideoPath = null
+        synchronized(this) {
             instance = null
         }
     }

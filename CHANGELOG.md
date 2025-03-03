@@ -1,3 +1,8 @@
+## 1.1.3
+
+- Optimize code
+- Update readme
+
 ## 1.1.2
 
 - Fix bug on Android build (#1)
