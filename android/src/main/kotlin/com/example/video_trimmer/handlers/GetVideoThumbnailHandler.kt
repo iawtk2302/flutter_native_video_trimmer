@@ -11,11 +11,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 
 
 @UnstableApi
 class GetVideoThumbnailHandler(private val context: Context) : BaseMethodHandler {
-    private val scope = CoroutineScope(Dispatchers.Main)
 
     override fun handle(call: MethodCall, result: MethodChannel.Result) {
         val positionMs = call.argument<Number>("positionMs")?.toLong() // Long for milliseconds
@@ -28,7 +29,10 @@ class GetVideoThumbnailHandler(private val context: Context) : BaseMethodHandler
             return
         }
 
-        scope.launch {
+        // Create a new scope that's tied only to this method call
+        val methodScope = CoroutineScope(Dispatchers.Main + Job())
+
+        methodScope.launch {
             try {
                 val path = VideoManager.getInstance().generateThumbnail(
                     context,
@@ -44,6 +48,9 @@ class GetVideoThumbnailHandler(private val context: Context) : BaseMethodHandler
                 withContext(Dispatchers.Main) {
                     result.error("THUMBNAIL_ERROR", e.message, null)
                 }
+            }
+            finally {
+                methodScope.cancel()
             }
         }
     }

@@ -1,7 +1,5 @@
 package com.example.video_trimmer
 
-import com.example.video_trimmer.BaseMethodHandler
-import com.example.video_trimmer.MethodName
 import android.content.Context
 import androidx.media3.common.util.UnstableApi
 import com.example.video_trimmer.handlers.*
@@ -14,7 +12,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 class VideoTrimmerPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
-    private lateinit var handlers: Map<MethodName, BaseMethodHandler>
+    private lateinit var methodManager: MethodManager
 
     companion object {
         const val CHANNEL_NAME = "flutter_native_video_trimmer"
@@ -24,13 +22,7 @@ class VideoTrimmerPlugin : FlutterPlugin, MethodCallHandler {
         context = binding.applicationContext
         channel = MethodChannel(binding.binaryMessenger, CHANNEL_NAME)
         channel.setMethodCallHandler(this)
-
-        handlers = mapOf(
-            MethodName.LOAD_VIDEO to LoadVideoHandler(context),
-            MethodName.TRIM_VIDEO to TrimVideoHandler(context),
-            MethodName.GET_VIDEO_THUMBNAIL to GetVideoThumbnailHandler(context),
-            MethodName.CLEAR_TRIM_VIDEO_CACHE to ClearTrimVideoCacheHandler(context)
-        )
+        methodManager = MethodManager(context)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
@@ -38,12 +30,7 @@ class VideoTrimmerPlugin : FlutterPlugin, MethodCallHandler {
         channel.setMethodCallHandler(null)
     }
 
-    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        val methodName = MethodName.fromString(call.method)
-        if (methodName == null) {
-            result.notImplemented()
-            return
-        }
-        handlers[methodName]?.handle(call, result) ?: result.notImplemented()
+    @UnstableApi override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        methodManager.handle(call,result)
     }
 }

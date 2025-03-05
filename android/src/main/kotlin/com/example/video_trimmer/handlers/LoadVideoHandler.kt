@@ -8,7 +8,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
 @UnstableApi
-class LoadVideoHandler(private val context: Context) : BaseMethodHandler {
+class LoadVideoHandler: BaseMethodHandler {
     override fun handle(call: MethodCall, result: MethodChannel.Result) {
         val path = call.argument<String>("path")
         if (path == null) {

@@ -1,3 +1,7 @@
+## 1.1.4
+
+- Refactor code
+
 ## 1.1.3
 
 - Optimize code

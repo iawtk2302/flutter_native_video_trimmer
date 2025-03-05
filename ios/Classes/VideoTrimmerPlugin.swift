@@ -3,7 +3,7 @@ import UIKit
 
 public class VideoTrimmerPlugin: NSObject, FlutterPlugin {
     
-    private var handlers: [MethodName: BaseMethodHandler] = [:]
+    private var methodManager: MethodManager
     
     static let CHANNEL_NAME = "flutter_native_video_trimmer"
 
@@ -12,23 +12,15 @@ public class VideoTrimmerPlugin: NSObject, FlutterPlugin {
         let instance = VideoTrimmerPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
         
-        instance.setupHandlers()
+    
     }
     
-    private func setupHandlers() {
-        handlers = [
-            .loadVideo: LoadVideoHandler(),
-            .trimVideo: TrimVideoHandler(),
-            .getVideoThumbnail: GetVideoThumbnailHandler(),
-            .clearTrimVideoCache: ClearTrimVideoCacheHandler()
-        ]
+    override init() {
+        self.methodManager = MethodManager()
+        super.init()
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let method = MethodName(rawValue: call.method) else {
-            result(FlutterMethodNotImplemented)
-            return
-        }
-        handlers[method]?.handle(call, result: result)
+       methodManager.handle(call, result: result)
     }
 }

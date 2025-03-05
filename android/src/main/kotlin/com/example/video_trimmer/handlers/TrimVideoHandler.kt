@@ -8,23 +8,26 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import kotlinx.coroutines.CoroutineScope    
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @UnstableApi
-class TrimVideoHandler(private val context: Context) : BaseMethodHandler {
-    private val scope = CoroutineScope(Dispatchers.Main)
-
+class TrimVideoHandler (private val context: Context): BaseMethodHandler {
     override fun handle(call: MethodCall, result: MethodChannel.Result) {
-        val startTimeMs = call.argument<Number>("startTimeMs")?.toLong() // Long for milliseconds
-        val endTimeMs = call.argument<Number>("endTimeMs")?.toLong() // Long for milliseconds
-
+        val startTimeMs = call.argument<Number>("startTimeMs")?.toLong()
+        val endTimeMs = call.argument<Number>("endTimeMs")?.toLong()
+    
         if (startTimeMs == null || endTimeMs == null) {
             result.error("INVALID_ARGUMENTS", "Missing startTimeMs/endTimeMs parameters", null)
             return
         }
-
-        scope.launch {
+    
+        // Create a new scope that's tied only to this method call
+        val methodScope = CoroutineScope(Dispatchers.Main + Job())
+        
+        methodScope.launch {
             try {
                 val path = VideoManager.getInstance().trimVideo(
                     context,
@@ -34,6 +37,8 @@ class TrimVideoHandler(private val context: Context) : BaseMethodHandler {
                 result.success(path)
             } catch (e: Exception) {
                 result.error("TRIM_ERROR", e.message, null)
+            } finally {
+                methodScope.cancel() // Always clean up the scope
             }
         }
     }
