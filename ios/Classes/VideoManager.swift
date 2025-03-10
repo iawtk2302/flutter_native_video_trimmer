@@ -16,7 +16,7 @@ class VideoManager {
         currentAsset = AVAsset(url: url)
     }
     
-    func trimVideo(startTimeMs: Int64, endTimeMs: Int64, completion: @escaping (Result<String, Error>) -> Void) {
+    func trimVideo(startTimeMs: Int64, endTimeMs: Int64, includeAudio: Bool = true, completion: @escaping (Result<String, Error>) -> Void) {
         guard let asset = currentAsset else {
             completion(.failure(VideoError.noVideoLoaded))
             return
@@ -57,6 +57,15 @@ class VideoManager {
         
         let timeRange = CMTimeRange(start: startTime, end: endTime)
         exportSession.timeRange = timeRange
+        
+        // Handle audio muting if needed
+        if !includeAudio {
+            let audioMix = AVMutableAudioMix()
+            let audioParameters = AVMutableAudioMixInputParameters(track: asset.tracks(withMediaType: .audio).first!)
+            audioParameters.setVolume(0.0, at: .zero)
+            audioMix.inputParameters = [audioParameters]
+            exportSession.audioMix = audioMix
+        }
         
         exportSession.exportAsynchronously {
             switch exportSession.status {

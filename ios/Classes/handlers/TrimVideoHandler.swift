@@ -11,6 +11,8 @@ class TrimVideoHandler: BaseMethodHandler {
             return
         }
         
+        let includeAudio = args["includeAudio"] as? Bool ?? true
+        
         // Validate time range
         guard startTime >= 0 && endTime > startTime else {
             result(FlutterError(code: "INVALID_TIME_RANGE",
@@ -22,7 +24,8 @@ class TrimVideoHandler: BaseMethodHandler {
         
         VideoManager.shared.trimVideo(
             startTimeMs: Int64(startTime),
-            endTimeMs: Int64(endTime)
+            endTimeMs: Int64(endTime),
+            includeAudio: includeAudio
         ) { trimResult in
             switch trimResult {
             case .success(let path):

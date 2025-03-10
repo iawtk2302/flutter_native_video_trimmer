@@ -1,3 +1,7 @@
+## 1.1.5
+
+- Add option includeAudio to trimVideo method
+
 ## 1.1.4
 
 - Refactor code
