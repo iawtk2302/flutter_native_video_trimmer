@@ -47,6 +47,7 @@ class VideoManager {
         context: Context,
         startTimeMs: Long,
         endTimeMs: Long,
+        includeAudio: Boolean
     ): String {
         val videoPath = currentVideoPath ?: throw VideoException("No video loaded")
         
@@ -73,6 +74,11 @@ class VideoManager {
                     )
                     .build()
 
+                val editedMediaItem =
+                    EditedMediaItem.Builder(mediaItem)
+                        .setRemoveAudio(!includeAudio)
+                        .build()
+
                 val transformerBuilder = Transformer.Builder(context)
                     .addListener(
                         object : Transformer.Listener {
@@ -92,9 +98,10 @@ class VideoManager {
                             }
                         }
                     )
+                    .experimentalSetTrimOptimizationEnabled(true)
 
                 transformer = transformerBuilder.build()
-                transformer?.start(mediaItem, outputFile.absolutePath)
+                transformer?.start(editedMediaItem, outputFile.absolutePath)
 
                 continuation.invokeOnCancellation {
                     transformer?.cancel()

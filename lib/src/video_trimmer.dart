@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'models/models.dart';
 import 'video_trimmer_platform_interface.dart';
 
 class VideoTrimmer {
@@ -12,13 +11,16 @@ class VideoTrimmer {
   /// Trims the loaded video from [startTime] to [endTime].
   /// Returns the path to the trimmed video file.
   /// Times are in milliseconds.
+  /// Set [includeAudio] to false to remove audio from the trimmed video.
   Future<String?> trimVideo({
     required int startTimeMs,
     required int endTimeMs,
+    bool includeAudio = true,
   }) {
     return VideoTrimmerPlatform.instance.trimVideo(
       startTimeMs: startTimeMs,
       endTimeMs: endTimeMs,
+      includeAudio: includeAudio,
     );
   }
 
@@ -36,11 +38,6 @@ class VideoTrimmer {
       width: width,
       height: height,
     );
-  }
-
-  /// Gets information about the loaded video including duration, width, height, etc.
-  Future<MediaInfo> getVideoInfo() {
-    return VideoTrimmerPlatform.instance.getVideoInfo();
   }
 
   /// Clears any cached files created during video trimming

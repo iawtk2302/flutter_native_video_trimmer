@@ -18,6 +18,7 @@ class TrimVideoHandler (private val context: Context): BaseMethodHandler {
     override fun handle(call: MethodCall, result: MethodChannel.Result) {
         val startTimeMs = call.argument<Number>("startTimeMs")?.toLong()
         val endTimeMs = call.argument<Number>("endTimeMs")?.toLong()
+        val includeAudio = call.argument<Boolean>("includeAudio")?:true
     
         if (startTimeMs == null || endTimeMs == null) {
             result.error("INVALID_ARGUMENTS", "Missing startTimeMs/endTimeMs parameters", null)
@@ -32,7 +33,8 @@ class TrimVideoHandler (private val context: Context): BaseMethodHandler {
                 val path = VideoManager.getInstance().trimVideo(
                     context,
                     startTimeMs = startTimeMs,
-                    endTimeMs = endTimeMs
+                    endTimeMs = endTimeMs,
+                    includeAudio=includeAudio
                 )
                 result.success(path)
             } catch (e: Exception) {
