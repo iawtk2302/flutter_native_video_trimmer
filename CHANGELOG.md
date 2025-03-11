@@ -1,3 +1,7 @@
+## 1.1.6
+
+- Fix bug in trimVideo method
+
 ## 1.1.5
 
 - Add option includeAudio to trimVideo method

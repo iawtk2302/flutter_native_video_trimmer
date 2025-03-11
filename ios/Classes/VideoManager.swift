@@ -58,10 +58,11 @@ class VideoManager {
         let timeRange = CMTimeRange(start: startTime, end: endTime)
         exportSession.timeRange = timeRange
         
-        // Handle audio muting if needed
-        if !includeAudio {
+        // Handle audio
+        let audioTracks = asset.tracks(withMediaType: .audio)
+        if !includeAudio && !audioTracks.isEmpty {
             let audioMix = AVMutableAudioMix()
-            let audioParameters = AVMutableAudioMixInputParameters(track: asset.tracks(withMediaType: .audio).first!)
+            let audioParameters = AVMutableAudioMixInputParameters(track: audioTracks[0])
             audioParameters.setVolume(0.0, at: .zero)
             audioMix.inputParameters = [audioParameters]
             exportSession.audioMix = audioMix

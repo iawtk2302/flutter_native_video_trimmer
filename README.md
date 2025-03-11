@@ -26,7 +26,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_native_video_trimmer: ^1.1.4
+  flutter_native_video_trimmer: ^1.1.6
 ```
 
 Or install via command line:
@@ -62,6 +62,7 @@ await videoTrimmer.loadVideo('/path/to/video.mp4');
 final trimmedPath = await videoTrimmer.trimVideo(
   startTimeMs: 0,     // Start time in milliseconds
   endTimeMs: 5000,    // End time in milliseconds (5 seconds)
+  includeAudio: true, // Optional, default is true
 );
 ```
 
