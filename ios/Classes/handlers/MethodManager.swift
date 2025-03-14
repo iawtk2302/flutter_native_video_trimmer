@@ -7,7 +7,6 @@ class MethodManager: BaseMethodHandler {
         self.handlers = [
             .loadVideo: LoadVideoHandler(),
             .trimVideo: TrimVideoHandler(),
-            .getVideoThumbnail: GetVideoThumbnailHandler(),
             .clearTrimVideoCache: ClearTrimVideoCacheHandler()
         ]
     }

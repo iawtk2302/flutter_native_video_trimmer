@@ -3,7 +3,9 @@
 [![pub package](https://img.shields.io/pub/v/flutter_native_video_trimmer.svg)](https://pub.dev/packages/flutter_native_video_trimmer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A lightweight Flutter plugin for video manipulation using native code. Trim videos and generate thumbnails without FFmpeg dependency.
+A lightweight Flutter plugin for video manipulation using native code. Trim videos without FFmpeg dependency.
+
+> **Note**: This library focuses specifically on video trimming functionality. If you need more advanced video editing features (trim, merge, crop, rotate, etc.), consider using [easy_video_editor](https://pub.dev/packages/easy_video_editor).
 
 ### Why choose this plugin?
 
@@ -17,7 +19,6 @@ A lightweight Flutter plugin for video manipulation using native code. Trim vide
 
 - 📼 **Video Loading**: Load and process video files from any source
 - ✂️ **Precise Trimming**: Trim videos with millisecond precision
-- 🖼️ **Thumbnail Generation**: Create high-quality thumbnails with customizable size
 - 🛠️ **Native Implementation**: Clean and efficient platform-specific code
 
 ## 📦 Installation
@@ -26,7 +27,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_native_video_trimmer: ^1.1.6
+  flutter_native_video_trimmer: ^1.1.7
 ```
 
 Or install via command line:
@@ -63,18 +64,6 @@ final trimmedPath = await videoTrimmer.trimVideo(
   startTimeMs: 0,     // Start time in milliseconds
   endTimeMs: 5000,    // End time in milliseconds (5 seconds)
   includeAudio: true, // Optional, default is true
-);
-```
-
-### Generate Thumbnail
-
-```dart
-// Generate a thumbnail at 1 second mark
-final thumbnailPath = await videoTrimmer.getVideoThumbnail(
-  positionMs: 1000,   // Position in milliseconds
-  quality: 100,       // Quality (0-100)
-  width: 640,         // Optional width
-  height: 480,        // Optional height
 );
 ```
 

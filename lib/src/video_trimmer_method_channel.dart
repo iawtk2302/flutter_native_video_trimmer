@@ -28,23 +28,6 @@ class MethodChannelVideoTrimmer extends VideoTrimmerPlatform {
   }
 
   @override
-  Future<String?> getVideoThumbnail({
-    required int positionMs,
-    required int quality,
-    int? width,
-    int? height,
-  }) async {
-    final result =
-        await methodChannel.invokeMethod<String>('getVideoThumbnail', {
-      'positionMs': positionMs,
-      'quality': quality,
-      'width': width,
-      'height': height,
-    });
-    return result;
-  }
-
-  @override
   Future<void> clearCache() async {
     await methodChannel.invokeMethod<void>('clearTrimVideoCache');
   }

@@ -24,22 +24,6 @@ class VideoTrimmer {
     );
   }
 
-  /// Gets a thumbnail from the video at the specified [position] in milliseconds.
-  /// Returns the path to the generated thumbnail file.
-  Future<String?> getVideoThumbnail({
-    required int positionMs,
-    required int quality,
-    int? width,
-    int? height,
-  }) {
-    return VideoTrimmerPlatform.instance.getVideoThumbnail(
-      positionMs: positionMs,
-      quality: quality,
-      width: width,
-      height: height,
-    );
-  }
-
   /// Clears any cached files created during video trimming
   Future<void> clearCache() {
     return VideoTrimmerPlatform.instance.clearCache();

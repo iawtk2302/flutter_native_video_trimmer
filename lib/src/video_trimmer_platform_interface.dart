@@ -35,15 +35,6 @@ abstract class VideoTrimmerPlatform extends PlatformInterface {
     throw UnimplementedError('trimVideo() has not been implemented.');
   }
 
-  Future<String?> getVideoThumbnail({
-    required int positionMs,
-    required int quality,
-    int? width,
-    int? height,
-  }) {
-    throw UnimplementedError('getVideoThumbnail() has not been implemented.');
-  }
-
   Future<void> clearCache() {
     throw UnimplementedError('clearCache() has not been implemented.');
   }

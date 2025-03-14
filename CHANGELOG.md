@@ -1,5 +1,10 @@
 ## 1.1.6
 
+- Remove thumbnail generation feature
+- Update README.md
+
+## 1.1.6
+
 - Fix bug in trimVideo method
 
 ## 1.1.5
@@ -70,7 +75,7 @@
 - Fix package export configuration
 - Fix iOS podspec configuration
 
-## 1.0.9
+## 1.0.0
 
 - Initial release
 - Features:

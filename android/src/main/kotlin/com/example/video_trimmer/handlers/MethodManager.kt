@@ -12,7 +12,6 @@ class MethodManager(private val context: Context):BaseMethodHandler{
     private val handlers: Map<MethodName, BaseMethodHandler> = mapOf(
     MethodName.LOAD_VIDEO to LoadVideoHandler(),
     MethodName.TRIM_VIDEO to TrimVideoHandler(context),
-    MethodName.GET_VIDEO_THUMBNAIL to GetVideoThumbnailHandler(context),
     MethodName.CLEAR_TRIM_VIDEO_CACHE to ClearTrimVideoCacheHandler(context)
     )
 
