@@ -1,4 +1,4 @@
-## 1.1.6
+## 1.1.7
 
 - Remove thumbnail generation feature
 - Update README.md
