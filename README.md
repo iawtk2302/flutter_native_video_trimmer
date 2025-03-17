@@ -27,7 +27,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_native_video_trimmer: ^1.1.7
+  flutter_native_video_trimmer: ^1.1.8
 ```
 
 Or install via command line:
@@ -83,7 +83,7 @@ Check the [example](example) folder for a complete sample app demonstrating all 
 | Platform | Implementation | Minimum Version | Status |
 | -------- | -------------- | --------------- | ------ |
 | Android  | Media3         | API 21 (5.0)    | ✅     |
-| iOS      | AVFoundation   | iOS 13.0        | ✅     |
+| iOS      | AVFoundation   | iOS 11.0        | ✅     |
 
 ## 🛠️ Requirements
 
@@ -96,7 +96,7 @@ Check the [example](example) folder for a complete sample app demonstrating all 
 
 ### iOS
 
-- Minimum iOS: 13.0
+- Minimum iOS: 11.0
 - Swift: 5.0
 - Xcode: Latest version
 
