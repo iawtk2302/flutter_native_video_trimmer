@@ -1,3 +1,7 @@
+## 1.1.9
+
+- Update README.md
+
 ## 1.1.8
 
 - Update minimum iOS version to 11.0

@@ -5,7 +5,10 @@
 
 A lightweight Flutter plugin for video manipulation using native code. Trim videos without FFmpeg dependency.
 
-> **Note**: This library focuses specifically on video trimming functionality. If you need more advanced video editing features (trim, merge, crop, rotate, etc.), consider using [easy_video_editor](https://pub.dev/packages/easy_video_editor).
+## ⭐️ IMPORTANT ⭐️
+
+This library focuses specifically on video trimming functionality.
+If you need more advanced video editing features (trim, merge, crop, rotate, etc.), consider using [easy_video_editor](https://pub.dev/packages/easy_video_editor).
 
 ### Why choose this plugin?
 
@@ -27,7 +30,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_native_video_trimmer: ^1.1.8
+  flutter_native_video_trimmer: ^1.1.9
 ```
 
 Or install via command line:
