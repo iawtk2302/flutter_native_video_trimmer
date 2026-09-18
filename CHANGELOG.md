@@ -1,3 +1,9 @@
+# CHANGELOG
+
+## 1.2.0
+
+- Fix AGP 9: remove kotlin-android, use built-in Kotlin DSL
+
 ## 1.1.9
 
 - Update README.md
