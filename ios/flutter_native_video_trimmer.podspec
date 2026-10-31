@@ -13,7 +13,7 @@ A lightweight Flutter plugin for video manipulation that uses pure native implem
   s.license          = { :type => 'MIT', :file => '../LICENSE' }
   s.author           = { 'iawtk2302' => 'https://github.com/iawtk2302' }
   s.source           = { :git => 'https://github.com/iawtk2302/flutter_native_video_trimmer.git', :tag => s.version.to_s }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'flutter_native_video_trimmer/Sources/flutter_native_video_trimmer/**/*.swift'
   s.dependency 'Flutter'
   s.platform = :ios, '11.0'
 
@@ -25,5 +25,5 @@ A lightweight Flutter plugin for video manipulation that uses pure native implem
   # required reason APIs, update the PrivacyInfo.xcprivacy file to describe your
   # plugin's privacy impact, and then uncomment this line. For more information,
   # see https://developer.apple.com/documentation/bundleresources/privacy_manifest_files
-  s.resource_bundles = {'flutter_native_video_trimmer_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
+  s.resource_bundles = {'flutter_native_video_trimmer_privacy' => ['flutter_native_video_trimmer/Sources/flutter_native_video_trimmer/PrivacyInfo.xcprivacy']}
 end
